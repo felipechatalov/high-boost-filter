@@ -48,14 +48,16 @@ def show_comparison(img, img2):
             break
     cv2.destroyAllWindows()
 
+
 def highboost_filter(img, k):
+    # Blur the image
+    img = cv2.GaussianBlur(img, (5, 5), 0)    
     # Create kernel
     kernel = np.array([
         [-1, -1, -1],
-        [-1, k+8, -1],
+        [-1, 8+k, -1],
         [-1, -1, -1]
     ])
-
     # Apply kernel
     img = cv2.filter2D(img, -1, kernel)
 
@@ -77,7 +79,7 @@ def main():
     img = img.astype(np.float32)/255
 
     # Apply highboost filter
-    img2 = highboost_filter(img, 1)
+    img2 = highboost_filter(img, 1.3)
 
     # Show the comparison on screen
     show_comparison(img, img2)
